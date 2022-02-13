@@ -15,7 +15,7 @@ function App() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log(data.get('inputstring'))
-    fetch(`${BASE_URL[environment]}/api/classify`, {
+    fetch(`${BASE_URL[environment]}/api/classify/`, {
       crossDomain: true,
       method: 'POST',
       body: JSON.stringify({ inputstring: data.get('inputstring')}),
