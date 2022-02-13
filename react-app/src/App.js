@@ -8,16 +8,24 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import './App.css';
+import { BASE_URL, environment } from './routeConstants';
 
 function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    console.log(data.get('inputstring'))
+    fetch(`${BASE_URL[environment]}/api/classify`, {
+      crossDomain: true,
+      method: 'POST',
+      body: JSON.stringify({ inputstring: data.get('inputstring')}),
+      headers: {
+      'Content-type': 'application/json'
+      }
+  })
+      .then(response => {
+          console.log(response)
+      });
   };
 
   return (
