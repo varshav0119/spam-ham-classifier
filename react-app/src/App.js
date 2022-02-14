@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -7,10 +7,13 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import './App.css';
 import { BASE_URL, environment } from './routeConstants';
 
 function App() {
+  var [result, setResult] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -22,11 +25,19 @@ function App() {
       headers: {
       'Content-type': 'application/json'
       }
-  })
-      .then(response => {
-          console.log(response)
-      });
-  };
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response)
+      setResult(result => {
+        return({
+            classification: response.classification,
+            inputstring: data.get('inputstring'),
+            spamScore: response.spam_score
+          })
+      })
+    })
+  }
 
   return (
       <Container component="main" maxWidth="xs">
@@ -60,15 +71,35 @@ function App() {
             >
               Is this Spam?
             </Button>
+            {Object.keys(result).length?
+              (result.classification === "NOT SPAM"?
+                <Alert severity="success">
+                <AlertTitle><strong>Not Spam</strong></AlertTitle>
+                  <strong>Spam Score: {result.spamScore.toFixed(2)}</strong>
+                  <div>
+                    {result.inputstring}
+                  </div>
+                </Alert>
+              :
+                <Alert severity="error">
+                <AlertTitle><strong>Spam</strong></AlertTitle>
+                  <strong>Spam Score: {result.spamScore.toFixed(2)}</strong>
+                  <div>
+                    {result.inputstring}
+                  </div>
+                </Alert>)
+            :
+                <></>
+            }
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="https://github.com/varshav0119/spam-ham-classifier" variant="body2">
                   GitHub
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Documentation"}
+                  {"Document"}
                 </Link>
               </Grid>
             </Grid>
