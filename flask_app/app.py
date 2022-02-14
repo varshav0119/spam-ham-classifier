@@ -6,7 +6,7 @@ from model import ClassificationModel
 app = Flask(__name__)
 CORS(app)
 
-# builds model based on configuration
+# build model based on configuration
 model = ClassificationModel()
 
 # Endpoints

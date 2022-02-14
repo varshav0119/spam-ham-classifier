@@ -98,8 +98,8 @@ function App() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Document"}
+                <Link href="https://varshav0119.notion.site/Spam-Classification-180fba0bc8ce49a78747e6eb9a66b09a" variant="body2">
+                  Report
                 </Link>
               </Grid>
             </Grid>
