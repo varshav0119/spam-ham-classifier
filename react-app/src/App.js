@@ -74,7 +74,7 @@ function App() {
             {Object.keys(result).length?
               (result.classification === "NOT SPAM"?
                 <Alert severity="success">
-                <AlertTitle><strong>Not Spam</strong></AlertTitle>
+                <AlertTitle><strong>result.classification</strong></AlertTitle>
                   <strong>Spam Score: {result.spamScore.toFixed(2)}</strong>
                   <div>
                     {result.inputstring}
@@ -82,7 +82,7 @@ function App() {
                 </Alert>
               :
                 <Alert severity="error">
-                <AlertTitle><strong>Spam</strong></AlertTitle>
+                <AlertTitle><strong>result.classification</strong></AlertTitle>
                   <strong>Spam Score: {result.spamScore.toFixed(2)}</strong>
                   <div>
                     {result.inputstring}

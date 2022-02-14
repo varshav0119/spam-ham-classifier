@@ -23,7 +23,8 @@ def classification_endpoint():
     if request.method == 'POST':
         input_string = request.json['inputstring']
         result, score = model.classify(input_string)
-        return(jsonify({
+        return jsonify({
             'classification': result,
             'spam_score': score
-        }))
+        })
+    return jsonify({})
